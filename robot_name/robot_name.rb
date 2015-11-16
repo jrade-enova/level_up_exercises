@@ -1,4 +1,15 @@
-class NameCollisionError < RuntimeError; end
+class NameCollisionError < StandardError
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+    super(message)
+  end
+
+  def to_s
+    "The name #{@name} is already taken!"
+  end
+end
 
 class Robot
   attr_accessor :name
@@ -9,14 +20,9 @@ class Robot
     @@registry ||= []
     @name_generator = args[:name_generator]
 
-    begin
-      @name = generate_name(@name_generator)
-      raise NameCollisionError, 'There was a problem ' \
-        'generating the robot name!' if invalid_name?(@name)
-    rescue StandardError => e
-      puts e.message
-      puts e.backtrace.inspect
-    end
+    @name = generate_name(@name_generator)
+    raise NameCollisionError.new(@name), 'There was a problem ' \
+      'generating the robot name!' if invalid_name?(@name)
 
     @@registry << @name
   end
