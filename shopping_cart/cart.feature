@@ -1,39 +1,39 @@
-Feature: A working shopping cart
+Feature: Shopping cart
   As a consumer
   I want a shopping cart
-  So that I can manage my ordering
+  So that I can manage my checkout
 
-  Scenario: Add item
+  Scenario: User adds an item to the shopping cart
     Given I am viewing an item
     When I want the item
     Then I should be able to add it to my cart
 
-  Scenario: Remove item
+  Scenario: User removes an item to the shopping cart
     Given I am viewing my cart
     When I do not want the item
     Then I should be able to remove it from my cart
 
-  Scenario: Update item quantity
+  Scenario: User updates an item quantity
     Given I am viewing my cart
     Then I should be able to change the item quantity
 
-  Scenario: View item pages from cart
+  Scenario: User wants to view an item from the shopping cart
     Given I am viewing my cart
     Then I should be able to view an item's page
 
-  Scenario: View shipping charges
+  Scenario: User wants to view shipping charges from the shopping cart
     Given I am viewing my cart
     Then I should be able to get shipping price by entering my address
 
-  Scenario: Add valid coupon
-    Given I am veiwing my cart
+  Scenario: User adds a valid coupon to adjust subtotal in the cart
+    Given I am viewing my cart
     When I enter a valid coupon code
     Then I should see my adjusted subtotal
 
-  Scenario: Add invalid coupon
-    Given I am veiwing my cart
-    When I enter an invalid coupon code
-    Then I should see a message indicating invalid
+  Scenario: User adds an expired coupon to adjust subtotal in the cart
+    Given I am viewing my cart
+    When I enter an expired coupon code
+    Then I should see a message indicating expired
     And I should not see a change in subtotal
 
   Scenario: Logging in after anonymous cart not empty
@@ -41,7 +41,7 @@ Feature: A working shopping cart
     When I login successfully
     Then I should see my anonymously added items with my previous session items
 
-  Scenario: Adding same SKU to cart
+  Scenario: User adds the same SKU that is already presesnt in the cart
     Given I have added an item
     When I add the same item again
     Then I should see that item with quantity equal to two
